@@ -56,7 +56,7 @@ routers are invoked if encountered mid-traversal.
 
 ## Benchmark Comparison
 
-Following benchmarks where taken under Node v24.0.2, on an Apple MacBook Pro M4 Pro 12C and represents 
+Following benchmarks where taken under Node v24.0.2, on an Apple MacBook Pro M4 Pro 14C and represents 
 operations per second for each routing type and framework.
 
 > Benchmark is not an indicator that any framework is worse or better. Any framework that
