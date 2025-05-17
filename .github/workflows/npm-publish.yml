@@ -21,11 +21,6 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
-      - name: Download Build Artifacts
-        uses: actions/download-artifact@v4
-        with:
-          name: build-artifacts
-
       - name: Run Tests
         run: npm test
 
