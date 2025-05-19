@@ -1,4 +1,4 @@
-import { Handler, MountStrategy, Params, Node, HttpMethod, RouteParams } from "~/types"
+import { Handler, MountStrategy, Params, Node, HttpMethod } from "~/types"
 
 /**
  * Lightweight, high‑performance HTTP router for Node.js and browsers,

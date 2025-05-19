@@ -1,5 +1,5 @@
 import Pathfinder from "~/pathfinder"
-import { Handler, MountStrategy, RouteParams } from "~/types"
+import { Handler, HttpMethod, MountStrategy, RouteParams } from "~/types"
 
 
 export {
@@ -7,5 +7,6 @@ export {
   MountStrategy,
 
   type RouteParams,
-  type Handler
+  type Handler,
+  type HttpMethod
 }
