@@ -1,5 +1,5 @@
 {
-  "name": "@kurai-io/pathfinder",
+  "name": "@sigiljs/pathfinder",
   "version": "0.0.0",
   "description": "Lightweight, high‑performance HTTP router for Node.js and browsers, written in TypeScript",
   "main": "dist/pathfinder.js",
