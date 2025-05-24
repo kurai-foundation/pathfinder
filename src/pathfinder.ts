@@ -125,7 +125,8 @@ export default class Pathfinder {
     const segments = clean === "/" ? [] : clean.slice(1).split("/")
     let node = this.root
     for (const s of segments) node = node.children[s] ??= { children: {}, handlers: {} }
-    node.mounted = { router: child, prefixLen: clean === "/" ? 0 : clean.length }
+    const mountEntry = { router: child, prefixLen: clean === "/" ? 0 : clean.length }
+    ;(node.mounted ??= []).push(mountEntry)
   }
 
   /**
@@ -195,8 +196,11 @@ export default class Pathfinder {
 
     // Check mounted sub-router at the current level.
     if (node.mounted) {
-      const d = node.mounted.router.lookup(method, path)
-      if (d) return d
+      for (const { router, prefixLen } of node.mounted) {
+        const subPath = prefixLen > 0 ? path.slice(prefixLen) : path
+        const res = router.lookup(method, subPath || "/")
+        if (res) return res
+      }
     }
 
     // If this is exactly the current node.
@@ -246,9 +250,16 @@ export default class Pathfinder {
 
       // Delegate if a router is mounted on the matched node.
       if (cur.mounted) {
-        const rest = atEnd ? "/" : path.slice(j)
-        const sub = cur.mounted.router.lookup(method, rest)
-        if (sub) return { handler: sub.handler, params: { ...params, ...sub.params } }
+        for (const { router } of cur.mounted) {
+          const rest = atEnd ? "/" : path.slice(j)
+          const sub = router.lookup(method, rest)
+          if (sub) {
+            return {
+              handler: sub.handler,
+              params: { ...params, ...sub.params }
+            }
+          }
+        }
       }
 
       if (atEnd) break

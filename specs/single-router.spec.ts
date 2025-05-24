@@ -40,4 +40,22 @@ describe("Should correctly register and lookup for routes", () => {
     const match = router.lookup("GET", "/v2/profile")
     expect(match?.handler?.({ params: match?.params })).toEqual(4)
   })
+
+  it("should correctly lookup for routes mounted on same root", () => {
+    const _r = new Pathfinder()
+    const _r2 = new Pathfinder()
+    const _r3 = new Pathfinder()
+
+    _r2.register("GET", "/content", () => 1)
+    _r3.register("GET", "/data", () => 2)
+
+    _r.mount("/", _r2)
+    _r.mount("/", _r3)
+
+    const h2 = _r.lookup("GET", "/content")?.handler?.({} as any)
+    const h3 = _r.lookup("GET", "/data")?.handler?.({} as any)
+
+    expect(h2).toEqual(1)
+    expect(h3).toEqual(2)
+  })
 })

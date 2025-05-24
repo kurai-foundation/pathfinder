@@ -61,5 +61,5 @@ export interface Node {
   /** Method -> handler table for the current path. */
   handlers: Record<HttpMethod | string, Handler>
   /** Optional mounted sub-router. */
-  mounted?: { router: Pathfinder; prefixLen: number }
+  mounted?: Array<{ router: Pathfinder; prefixLen: number }>
 }
